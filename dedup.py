@@ -1,16 +1,20 @@
 import pandas as pd
 
-# Load CSV file
-df = pd.read_csv("omaha.csv")
+# Load base data and Omaha repeater list
+df_base = pd.read_csv("bws_base.csv")
+df_omaha = pd.read_csv("omaha.csv")
 
-# Remove duplicate rows
-df_cleaned = df.drop_duplicates()
+# Remove duplicates in Omaha data
+df_omaha_cleaned = df_omaha.drop_duplicates()
+
+# Merge base data with cleaned Omaha data (prepend `bws_base.csv`)
+df_combined = pd.concat([df_base, df_omaha_cleaned], ignore_index=True)
 
 # Ensure the "Channel Number" column is properly reindexed
-if "Channel Number" in df_cleaned.columns:
-    df_cleaned["Channel Number"] = range(1, len(df_cleaned) + 1)
+if "Channel Number" in df_combined.columns:
+    df_combined["Channel Number"] = range(1, len(df_combined) + 1)
 
-# Save the cleaned CSV file
-df_cleaned.to_csv("omaha_cleaned.csv", index=False)
+# Save the final cleaned and merged CSV
+df_combined.to_csv("omaha_cleaned.csv", index=False)
 
-print("Duplicates removed and Channel Number reindexed! Cleaned file saved as omaha_cleaned.csv.")
+print("Base data prepended, duplicates removed, and channels renumbered! Saved as omaha_cleaned.csv.")
