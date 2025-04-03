@@ -34,7 +34,7 @@ def get_grid_square(lat, lon):
     return maidenhead.to_maiden(lat, lon, precision=6)[:6]  # Extract first six characters
 
 # Get cities along the route
-cities = ["Minneapolis, MN", "Sioux City, IA", "Omaha, NE", "Lincoln, NE"]
+cities = ["Stillwater, MN", "Sioux City, IA", "Omaha, NE", "Lincoln, NE"]
 route = get_route(cities)
 
 if route:
@@ -60,7 +60,7 @@ if route:
     for _, row in matches.iterrows():
         folium.Marker(
             location=[row["Lat"], row["Long"]],
-            popup=f"Repeater: {row['Call']}",
+            popup=f"Repeater: {row['Name']}",
             icon=folium.Icon(color="red")
         ).add_to(m)
 

@@ -5,7 +5,7 @@ import glob
 directory = "."
 
 # Find all CSV files starting with "rb_" in the directory
-csv_files = glob.glob(f"{directory}/rb_*.csv")
+csv_files = glob.glob(f"{directory}/rb_rt*.csv")
 
 # Load and merge CSV files
 df_list = [pd.read_csv(file) for file in csv_files]
